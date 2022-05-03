@@ -1,25 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void le_array(int n, float num[]){
-    for(int i=0; i<n; i++){
-        printf("Digite o %do valor a ser ordenado: ", i+1);
-        scanf("%f", &num[i]);
-    }
-}
-
-void ordena_array(int n, float numero[]){
-    int aux;
-    for( int i=0; i<n; i++ ){
-        for( int j=i+1; j<n; j++ ){
-            if( numero[i] > numero[j] ){
-                aux =numero[i];
-                numero[i] = numero[j];
-                numero[j] = aux;
-            }
-        }
-    }
-}
+void le_array(int n, float num[]);
+void ordena_array(int n, float num[]);
 
 int main() {
     int n;
@@ -39,4 +22,24 @@ int main() {
 
     free(x);
     return 0;
+}
+
+void le_array(int n, float num[]){
+    for(int i=0; i<n; i++){
+        printf("Digite o %do valor a ser ordenado: ", i+1);
+        scanf("%f", &num[i]);
+    }
+}
+
+void ordena_array(int n, float num[]){
+    int aux;
+    for( int i=0; i<n; i++ ){
+        for( int j=i+1; j<n; j++ ){
+            if( num[i] > num[j] ){
+                aux =num[i];
+                num[i] = num[j];
+                num[j] = aux;
+            }
+        }
+    }
 }
