@@ -1,26 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void ler(int nl, int nb, int **matriz){
-  for(int i=0; i<nl; i++){
-    for(int j=0; j<nb; j++){
-      printf("Infrome o elemento %d%d da matriz\n", i+1, j+1);
-      scanf("%d", &matriz[i][j]);
-    }
-  }
-}
-
-void multiplicacao(int lA, int cA, int cB, int **matrizA, int **matrizB, int **matrizC){
-  for( int i=0; i<lA; i++ ){
-    for (int j=0; j<cB; j++){
-      int resultado = 0;
-      for (int k=0; k<cA; k++){
-        resultado += matrizA[i][k]*matrizB[k][j];
-      }
-      matrizC[i][j] = resultado;
-    }
-  }
-}
+void leitura(int nl, int nb, int **matriz);
 
 int main() {
   int cA, lA, cB, lB;
@@ -48,11 +29,19 @@ int main() {
   }
 
   printf("Matriz A\n");
-  ler (lA, cA, matrizA);
+  leitura (lA, cA, matrizA);
   printf("Matriz B\n");
-  ler (lB, cB, matrizB);
+  leitura (lB, cB, matrizB);
 
-  multiplicacao (lA, cA, cB, matrizA, matrizB, matrizC);
+  for( int i=0; i<lA; i++ ){
+    for (int j=0; j<cB; j++){
+      int resultado = 0;
+      for (int k=0; k<cA; k++){
+        resultado += matrizA[i][k]*matrizB[k][j];
+      }
+      matrizC[i][j] = resultado;
+    }
+  }
 
   printf("Matriz C\n");
   for(int i=0; i<lA; i++){
@@ -75,4 +64,13 @@ int main() {
   }
   free(matrizC);
   return 0;
+}
+
+void ler(int nl, int nb, int **matriz){
+  for(int i=0; i<nl; i++){
+    for(int j=0; j<nb; j++){
+      printf("Infrome o elemento %d%d da matriz\n", i+1, j+1);
+      scanf("%d", &matriz[i][j]);
+    }
+  }
 }
