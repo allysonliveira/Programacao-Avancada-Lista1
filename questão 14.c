@@ -1,42 +1,49 @@
+/*Reimplemente o programa da questão anterior utilizando a função qsort() do C. Comente o seu
+código, explicando o que faz cada uma das linhas.*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
-int compara_array (const void*x, const void*y);
-void le_array(int n, float num[]);
-void ordena_array(int n, float num[]);
+int compara(const void*x, const void*y);
+void ordem(int n, float num[]);
+void entrada(int n, float num[]);
 
 int main() {
-    int n;
-    float *p;
+  int tam;		//Declara variável inteira tam/ tamanho
+  float *p;		// Declara ponteiro
 
-    printf("Digite a quantidade de numeros a serem ordenados: ");
-    scanf("%d", &n);
+  printf("Digite a qtd de num: \n"); // Solicita entrada ao usuário para o tamanho
+  scanf("%d", &tam); // Entrada do usuário
 
-    p=malloc(n * sizeof(float));
-    le_array(n, p);
-    ordena_array(n, p);
+  p = malloc(tam * sizeof(float));	// Alicação dinâmica do p
 
+  //Chama as funções
+  entrada(tam, p);	//Chama função entrada
 
-    for(int i=0; i<n; i++){
-        printf("%f ", p[i]);
-    }
+  printf("--------- ORDENAÇAO ---------\n");
+  ordem(tam, p);	//Chama função ordem
 
-    free(p);
-    return 0;
+  //Apresenta na tela
+  for(int i=0; i<tam; i++){
+    printf("%.2f ", p[i]);
+  }
+
+  return 0;
 }
 
-int compara_array (const void*x, const void*y){
-  float fx = *(const float *)x,fy = *(const float*)y;
-  return (fx>fy) - (fx<fy);
+int compara(const void*x, const void*y){ // Compara os array
+  float fx = *(const float *)x,fy = *(const float*)y;  // Define o valor fx p/ x; fy p/ y
+  return (fx>fy) - (fx<fy);	// Retorna 1 se fx for maior que fy e -1 se for menor.
 }
 
-void le_array(int n, float num[]){
-    for(int i=0; i<n; i++){
-        printf("Digite o %do valor a ser ordenado: ", i+1);
-        scanf("%f", &num[i]);
-    }
+
+void entrada(int tam, float num[]){	//Função de entrada para inserir as informações
+  printf("Digite os numeros para serem ordenados: \n");
+  for(int i=0; i<tam; i++){	// Laço de repetição para percorrer pelo array
+    scanf("%f", &num[i]);	//Insere o valor no array
+  }
 }
 
-void ordena_array(int n, float num[]){
-    qsort(num, n, sizeof(float), compara_array);
+void ordem(int tam, float num[]){	//Função de ordenação
+   qsort(num, tam, sizeof(float), compara); //Chama função qsort
 }

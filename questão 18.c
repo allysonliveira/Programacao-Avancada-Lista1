@@ -17,16 +17,16 @@ int main() {
 
   a = malloc(linhaA*sizeof(int));
   for (int i=0; i < linhaA; i++){   a[i] = malloc(colunaA * sizeof(int));}
-  
+
   b = malloc(linhaB*sizeof(int));
   for(int j=0; j < linhaB; j++){    b[j] = malloc(colunaB * sizeof(int));}
-  
+
   c = malloc(linhaA*sizeof(int));
   for(int k=0; k<linhaA; k++){      c[k] = malloc(colunaB * sizeof(int));}
 
   printf("Entre com o elementos de A\n");
   entrada_matriz (linhaA, colunaA, a);
-  
+
   printf("Entre com o elementos de A\n");
   entrada_matriz (linhaB, colunaB, b);
 
@@ -36,7 +36,7 @@ int main() {
                 for (int k=0; k<colunaA; k++){
                     resultado += a[i][k]*b[k][j];}
             c[i][j] = resultado;}
-        
+
     }
 
   printf("Resultado da soma da Matriz A + Matriz B = Matriz C:\n");
@@ -48,13 +48,13 @@ int main() {
 
   for(int i=0; i<linhaA; i++){free(a[i]);}
   free(a);
-  
+
   for(int i=0; i<linhaB; i++){free(b[i]);}
   free(b);
-  
+
   for(int i=0; i<linhaA; i++){free(c[i]);}
   free(c);
-  
+
   return 0;
 }
 
