@@ -1,76 +1,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void leitura(int nl, int nb, int **matriz);
+void entrada_matriz(int x, int y, int **m);
 
 int main() {
-  int cA, lA, cB, lB;
-  int **matrizA, **matrizB, **matrizC;
+  int **a, **b, **c;
+  int colunaA,colunaB,linhaA,linhaB;
 
-  printf("Digite a quantidade de linhas e colunas da matriz A: \n");
-  scanf("%d", &lA);
-  scanf("%d", &cA);
+  printf("Linhas e colunas da matriz A:");
+  scanf("%d", &linhaA);
+  scanf("%d", &colunaA);
 
-  printf("Digite a quantidade de linhas e colunas da matriz B: \n");
-  scanf("%d", &lB);
-  scanf("%d", &cB);
+  printf("Linhas e colunas da matriz B:");
+  scanf("%d", &linhaB);
+  scanf("%d", &colunaB);
 
-  matrizA = malloc(lA * sizeof(int));
-  for(int i=0; i<lA; i++){
-    matrizA[i] = malloc(cA * sizeof(int));
-  }
-  matrizB = malloc(lB * sizeof(int));
-  for(int i=0; i<lB; i++){
-    matrizB[i] = malloc(cB * sizeof(int));
-  }
-  matrizC = malloc(lA * sizeof(int));
-  for(int i=0; i<lA; i++){
-    matrizC[i] = malloc(cB * sizeof(int));
-  }
+  a = malloc(linhaA*sizeof(int));
+  for (int i=0; i < linhaA; i++){   a[i] = malloc(colunaA * sizeof(int));}
+  
+  b = malloc(linhaB*sizeof(int));
+  for(int j=0; j < linhaB; j++){    b[j] = malloc(colunaB * sizeof(int));}
+  
+  c = malloc(linhaA*sizeof(int));
+  for(int k=0; k<linhaA; k++){      c[k] = malloc(colunaB * sizeof(int));}
 
-  printf("Matriz A\n");
-  leitura (lA, cA, matrizA);
-  printf("Matriz B\n");
-  leitura (lB, cB, matrizB);
+  printf("Entre com o elementos de A\n");
+  entrada_matriz (linhaA, colunaA, a);
+  
+  printf("Entre com o elementos de A\n");
+  entrada_matriz (linhaB, colunaB, b);
 
-  for( int i=0; i<lA; i++ ){
-    for (int j=0; j<cB; j++){
-      int resultado = 0;
-      for (int k=0; k<cA; k++){
-        resultado += matrizA[i][k]*matrizB[k][j];
-      }
-      matrizC[i][j] = resultado;
+    for( int i=0; i<linhaA; i++ ){
+        for (int j=0; j<colunaB; j++){
+            int resultado = 0;
+                for (int k=0; k<colunaA; k++){
+                    resultado += a[i][k]*b[k][j];}
+            c[i][j] = resultado;}
+        
     }
+
+  printf("Resultado da soma da Matriz A + Matriz B = Matriz C:\n");
+  for(int i=0; i<linhaA; i++){
+    for (int j=0; j<colunaB; j++){
+      printf("%d ", c[i][j]);
+    }printf("\n");
   }
 
-  printf("Matriz C\n");
-  for(int i=0; i<lA; i++){
-    for (int j=0; j<cB; j++){
-      printf("%d ", matrizC[i][j]);
-    }
-    printf("\n");
-  }
-
-  for(int i=0; i<lA; i++){
-    free(matrizA[i]);
-  }
-  free(matrizA);
-  for(int i=0; i<lB; i++){
-    free(matrizB[i]);
-  }
-  free(matrizB);
-  for(int i=0; i<lA; i++){
-    free(matrizC[i]);
-  }
-  free(matrizC);
+  for(int i=0; i<linhaA; i++){free(a[i]);}
+  free(a);
+  
+  for(int i=0; i<linhaB; i++){free(b[i]);}
+  free(b);
+  
+  for(int i=0; i<linhaA; i++){free(c[i]);}
+  free(c);
+  
   return 0;
 }
 
-void ler(int nl, int nb, int **matriz){
-  for(int i=0; i<nl; i++){
-    for(int j=0; j<nb; j++){
-      printf("Infrome o elemento %d%d da matriz\n", i+1, j+1);
-      scanf("%d", &matriz[i][j]);
+void entrada_matriz(int x, int y, int **m){
+  for(int i=0; i<x; i++){
+    for(int j=0; j<y; j++){
+      printf("Digite o elemento %d%d da matriz\n", i+1, j+1);
+      scanf("%d", &m[i][j]);
     }
   }
 }
