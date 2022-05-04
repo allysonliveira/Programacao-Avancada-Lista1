@@ -1,0 +1,91 @@
+PROGRAMAÇÃO MODULAR
+
+#Classes são separadas em 2 arquivos:
+- classe.cpp(definição)
+incluiremos a declaração 
+	- dos arquivos .cpp são gerados os arquivos classe.o(objeto) que criam o probrama executado
+	ex: main -> main.cpp -> main.o -> prog.exe
+
+- classe.h (header)
+incluieremos a implementação
+estes arquivos não são compilados diretamente, ex:main.cpp, classe.cpp
+
+
+#Projetos são grupos de arquivos que podem compilar em conjunto
+
+#O que o 'define' faz?
+cria uma tabela de definições, do tipo
+simbolo 	|	 expressão
+pi			3.14
+
+-> Se por ventura, caso o item que chamamos dentro da biblioteca tabelada, o programa irá incluir o que vem após o #define dentro da tabela, exemplo
+Código:
+#define VETOR2D_H
+
+-> O 'VETOR2D_H' nao existe dentro de nenhum #define, então o 'VETOR2D_H' é incluso como símbolo dentro da tabela:
+simbolo 	|	 expressão
+pi			3.14
+VETOR2D_R		'chamada do header vetor2d.h'
+
+##EXEMPLO01: REALIZAR O DEBUG
+
+vetor.h[
+void soma(...);
+
+]
+
+matriz.h[
+#include "vetor.h"
+
+]
+
+main.c[
+#include "vetor.h"
+#include "matriz.h"
+
+main(...){
+  soma(...);
+
+}
+]
+
+soma(...);
+  redefinção de soma(...);
+
+
+##Executando a compilação dos arquivos acima
+$ gcc main.c -o teste.exe 
+-> primeiro, processa o arquivo main.c com todas os chamados que ela faz no seu escopo
+-> lê matriz.h
+-> lê vetor.h
+-> ao chamar soma(...); não vai funcionar, pois há uma inclusão dupla da função dentre todo o processo, pois ela já se encontra inclusa dentro da sequência de leitura que o compilador executa
+
+
+
+##Implementando corretamente o programa do EXEMPLO01:
+
+vetor.h[
+#ifndef VETOR2D_H
+#define VETOR2D_H
+  soma(...);
+
+#endif
+]
+
+matriz.h[
+#include "vetor.h"
+
+]
+
+main.c[
+#include "vetor.h"
+#include "matriz.h"
+
+main(...){
+  soma(...);
+
+}
+]
+
+soma(...);
+  redefinção de soma(...);
